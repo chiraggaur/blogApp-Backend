@@ -16,7 +16,7 @@ var registrationSchema = new Schema(
     },
     follows: [{ type: mongoose.Schema.Types.ObjectId }],
   },
-  { timeStamps: true }
+  { timestamps: { createdAt: "created_at" } }
 );
 
 // hash password beforo saving to DB;

@@ -10,9 +10,23 @@ var SignUp = require("../models/signUp");
 // const upload = multer({ storage: storage });
 var ArticleData = {
   listAllArticles: async (req, res, next) => {
+    let { sort } = req.query;
     try {
-      const data = await Article.find({}).populate("author");
-      res.json(data);
+      if (sort === "newest") {
+        const data = await Article.find({})
+          .sort({ updatedAt: -1 })
+          .populate("author");
+        res.json(data);
+      } else if (sort === "oldest") {
+        const data = await Article.find({})
+          .sort({ updatedAt: 1 })
+          .populate("author");
+        res.json(data);
+      } else {
+        const data = await Article.find({}).populate("author");
+        res.json(data);
+      }
+      // console.log(data);
     } catch (err) {
       res.send(err);
     }

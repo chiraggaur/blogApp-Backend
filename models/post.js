@@ -15,7 +15,7 @@ var articleSchema = new Schema(
     }, // use with populate method for author details
     feedback: { type: mongoose.Schema.Types.ObjectId }, // use with populate method for followers details
   },
-  { timeStamps: true }
+  { timestamps: { createdAt: "created_at" } }
 );
 
 var Article = mongoose.model("Article", articleSchema);

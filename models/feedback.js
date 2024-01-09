@@ -11,7 +11,7 @@ var feedbackSchema = new Schema(
       likes: { type: Number },
     },
   },
-  { timeStamps: true }
+  { timestamps: { createdAt: "created_at" } }
 );
 
 var Feedback = mongoose.model("Feedback", feedbackSchema);
