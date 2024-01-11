@@ -9,20 +9,39 @@ var userData = {
   listAllUsers: async (req, res, next) => {
     try {
       data = await SignUp.find({});
-      res.send(data);
+      res.json(data);
     } catch (err) {
       res.send(err);
     }
   },
   signUpNewUser: async (req, res, next) => {
     try {
-      data = req.body;
-      await SignUp.create(data);
+      // Access form fields and uploaded file through req.body and req.file
+      const { username, email, password } = req.body;
+      console.log(req.file);
+
+      // // Get the uploaded file path (if available)
+      const imageUrl = `${req.protocol}://${req.get("host")}/Images/${
+        req.file.filename
+      }`;
+      // // // // Create a new user with the form data and file path
+      await SignUp.create({ username, email, password, imageUrl });
+
       return res.status(200).json({ message: "User registered Successfully" });
     } catch (err) {
       return res.status(401).json({ message: err.message });
     }
   },
+  // signUpNewUser: async (req, res, next) => {
+  //   try {
+  //     data = req.body;
+  //     console.log(data);
+  //     await SignUp.create(data);
+  //     return res.status(200).json({ message: "User registered Successfully" });
+  //   } catch (err) {
+  //     return res.status(401).json({ message: err.message });
+  //   }
+  // },
   // sign in user match email/password with registered database
   signInUser: async (req, res, next) => {
     try {

@@ -1,13 +1,7 @@
 var express = require("express");
 var Article = require("../models/post");
 var SignUp = require("../models/signUp");
-// const multer = require("multer");
-// // var Authorize = require("../middlewares/authorize");
-// // crud on articles
-
-// // Configure multer to store uploaded files in memory
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
+var path = require("path");
 var ArticleData = {
   listAllArticles: async (req, res, next) => {
     let { sort } = req.query;
@@ -16,6 +10,7 @@ var ArticleData = {
         const data = await Article.find({})
           .sort({ updatedAt: -1 })
           .populate("author");
+        // console.log(data); // check this for image validation
         res.json(data);
       } else if (sort === "oldest") {
         const data = await Article.find({})
